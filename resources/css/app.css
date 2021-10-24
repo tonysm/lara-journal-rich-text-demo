@@ -1,3 +1,71 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.trix-content {
+    @apply w-full;
+}
+
+/** These are specific for the tag that will be added to the rich text content */
+.trix-content .attachment-gallery > rich-text-attachment,
+.trix-content .attachment-gallery > .attachment {
+  flex: 1 0 33%;
+  padding: 0 0.5em;
+  max-width: 33%; }
+
+.trix-content .attachment-gallery.attachment-gallery--2 > rich-text-attachment,
+.trix-content .attachment-gallery.attachment-gallery--2 > .attachment,
+.trix-content .attachment-gallery.attachment-gallery--4 > rich-text-attachment,
+.trix-content .attachment-gallery.attachment-gallery--4 > .attachment {
+  flex-basis: 50%;
+  max-width: 50%; }
+
+.trix-content rich-text-attachment .attachment {
+  padding: 0 !important;
+  max-width: 100% !important; }
+
+/** These are TailwindCSS specific tweaks */
+.trix-content ul {
+    list-style-type: disc;
+    padding-left: 2.5rem; }
+
+.trix-content ol {
+    list-style-type: decimal;
+    padding-left: 2.5rem; }
+
+.trix-content img {
+    margin: 0 auto; }
+
+.trix-content h1 {
+    font-size: 1.25rem !important;
+    line-height: 1.25rem !important;
+
+    @apply mb-4 font-semibold leading-5;
+}
+
+.trix-content a:not(.no-underline) {
+    @apply underline;
+}
+
+.trix-content h2 {
+    @apply mb-4 text-lg font-semibold leading-5;
+}
+
+.trix-content h3 {
+    @apply mb-4 text-base font-semibold leading-5;
+}
+
+.trix-content h4, h5, h6 {
+    @apply mb-4 text-sm font-semibold leading-5 text-gray-600;
+}
+
+.trix-content figure {
+    @apply z-0;
+}
+
+[data-trix-active] {
+    @apply bg-gray-200;
+}
+[data-trix-action][disabled], [data-trix-attribute][disabled] {
+    @apply text-gray-300 cursor-not-allowed;
+}
