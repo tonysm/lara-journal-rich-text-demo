@@ -10,14 +10,19 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@hotwired/stimulus": "^3.0.0",
+        "@hotwired/stimulus-webpack-helpers": "^1.0.1",
+        "@hotwired/turbo": "^7.0.1",
         "@tailwindcss/forms": "^0.3.1",
         "@tailwindcss/typography": "^0.4.0",
-        "alpinejs": "^3.0.6",
+        "alpinejs": "^3.4.1",
         "axios": "^0.21",
+        "laravel-echo": "^1.11.2",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "postcss-import": "^14.0.1",
+        "pusher-js": "^7.0.3",
         "tailwindcss": "^2.2.2",
         "trix": "^1.3.1"
     }
