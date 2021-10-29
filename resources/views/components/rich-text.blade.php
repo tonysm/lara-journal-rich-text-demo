@@ -23,10 +23,9 @@
                 onUploadProgress: (progressEvent) => {
                     attachment.setUploadProgress(progressEvent.loaded / progressEvent.total * 100);
                 }
-            }).then(resp => {
+            }).then(({ data }) => {
                 attachment.setAttributes({
-                    url: resp.data.image_url,
-                    href: resp.data.image_url,
+                    url: data.url,
                 });
             });
         },

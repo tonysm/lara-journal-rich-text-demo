@@ -5987,16 +5987,16 @@
         },
         {
             "name": "tonysm/rich-text-laravel",
-            "version": "1.0.2",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tonysm/rich-text-laravel.git",
-                "reference": "acb62ad9895a5f9c01cd48a38c33cb7b06749839"
+                "reference": "60fa2c18822f3d7643b3c01fa2a3d7ab4e9555cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tonysm/rich-text-laravel/zipball/acb62ad9895a5f9c01cd48a38c33cb7b06749839",
-                "reference": "acb62ad9895a5f9c01cd48a38c33cb7b06749839",
+                "url": "https://api.github.com/repos/tonysm/rich-text-laravel/zipball/60fa2c18822f3d7643b3c01fa2a3d7ab4e9555cd",
+                "reference": "60fa2c18822f3d7643b3c01fa2a3d7ab4e9555cd",
                 "shasum": ""
             },
             "require": {
@@ -6047,9 +6047,9 @@
             ],
             "support": {
                 "issues": "https://github.com/tonysm/rich-text-laravel/issues",
-                "source": "https://github.com/tonysm/rich-text-laravel/tree/1.0.2"
+                "source": "https://github.com/tonysm/rich-text-laravel/tree/1.2.0"
             },
-            "time": "2021-10-20T02:30:55+00:00"
+            "time": "2021-10-29T01:21:52+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
