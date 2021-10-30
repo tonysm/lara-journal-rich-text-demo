@@ -24,6 +24,7 @@ return [
      |
      */
     'supported_files_content_types' => [
+        'video/mp4',
         'application/pdf',
         'text/csv',
         'application/msword',
