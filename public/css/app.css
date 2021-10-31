@@ -1883,7 +1883,7 @@ select {
 .trix-content ol {
     list-style-type: decimal;
     padding-left: 2.5rem; }
-.trix-content img {
+.trix-content img, .trix-content video {
     margin: 0 auto; }
 .trix-content h1 {
     font-size: 1.25rem !important;
@@ -1918,8 +1918,9 @@ select {
 	--tw-text-opacity: 1;
 	color: rgba(75, 85, 99, var(--tw-text-opacity));
 }
-.trix-content figure {
+.trix-content figure:not(.attachment--file) {
 	z-index: 0;
+	width: 100%;
 }
 [data-trix-active] {
 	--tw-bg-opacity: 1;

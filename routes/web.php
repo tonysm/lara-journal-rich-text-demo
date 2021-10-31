@@ -4,12 +4,37 @@ use App\Models\Attachment;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use Tonysm\GlobalId\Facades\Locator;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::middleware('cache.headers:private;max_age=2628000;etag')->get('attachments/{sgid}', function ($sgid) {
+    $model = Locator::locateSigned($sgid, [
+        'for' => 'rich-text-laravel',
+    ]);
+
+    return redirect($model->trixAttachmentUrl());
+})->name('attachments.show');
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::post('attachments', function () {
+        request()->validate([
+            'attachment' => ['required', 'file'],
+        ]);
+
+        $attachment = auth()->user()->currentTeam->addAttachment(
+            request()->file('attachment')
+        );
+
+        return [
+            'sgid' => $attachment->sgid,
+            'url' => $attachment->attachmentUrl(),
+            'content' => $attachment->toTrixContent(),
+        ];
+    })->name('attachments.store');
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
@@ -58,15 +83,15 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return redirect()->route('posts.show', $post);
     })->name('posts.update');
 
-    Route::post('attachments', function () {
-        request()->validate([
-            'attachment' => ['required', 'file'],
-        ]);
+    // Route::post('attachments', function () {
+    //     request()->validate([
+    //         'attachment' => ['required', 'file'],
+    //     ]);
 
-        $file = request()->file('attachment');
+    //     $file = request()->file('attachment');
 
-        return [
-            'url' => Storage::disk('public')->url($file->store('trix-attachments', 'public')),
-        ];
-    })->name('attachments.store');
+    //     return [
+    //         'url' => Storage::disk('public')->url($file->store('trix-attachments', 'public')),
+    //     ];
+    // })->name('attachments.store');
 });

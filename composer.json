@@ -13,7 +13,9 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.5",
-        "tonysm/rich-text-laravel": "^1.0",
+        "php-ffmpeg/php-ffmpeg": "^0.18.0",
+        "spatie/laravel-medialibrary": "^9.8",
+        "tonysm/rich-text-laravel": "^1.2",
         "tonysm/turbo-laravel": "^0.16.0"
     },
     "require-dev": {

@@ -25,6 +25,7 @@
                 }
             }).then(({ data }) => {
                 attachment.setAttributes({
+                    sgid: data.sgid,
                     url: data.url,
                 });
             });
