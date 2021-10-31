@@ -10,13 +10,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware('cache.headers:private;max_age=2628000;etag')->get('attachments/{sgid}', function ($sgid) {
-    $model = Locator::locateSigned($sgid, [
-        'for' => 'rich-text-laravel',
-    ]);
+Route::middleware('cache.headers:private;max_age=2628000;etag')->group(function () {
+    Route::get('attachments/{sgid}', function ($sgid) {
+        $model = Locator::locateSigned($sgid, [
+            'for' => 'rich-text-laravel',
+        ]);
 
-    return redirect($model->trixAttachmentUrl());
-})->name('attachments.show');
+        return redirect($model->trixAttachmentUrl());
+    })->name('attachments.show');
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('attachments', function () {

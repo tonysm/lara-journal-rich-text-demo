@@ -4,15 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Tonysm\GlobalId\Models\HasGlobalIdentification;
 use Tonysm\RichTextLaravel\Attachment;
 use Tonysm\RichTextLaravel\Models\Traits\HasRichText;
 
-class Post extends Model
+class Post extends Model implements HasMedia
 {
     use HasFactory;
     use HasRichText;
     use HasGlobalIdentification;
+    use InteractsWithMedia;
 
     protected $guarded = [];
 
@@ -25,6 +28,18 @@ class Post extends Model
         'attachable_sgid',
     ];
 
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('trix-attachments')
+            ->registerMediaConversions(function (Media $media) {
+                $this
+                    ->addMediaConversion('thumb')
+                    ->width(600)
+                    ->height(400);
+            });
+    }
+
     public static function booted()
     {
         static::saved(function (Post $post) {
@@ -32,7 +47,11 @@ class Post extends Model
                 ->filter(function (Attachment $attachment) {
                     return $attachment->attachable instanceof Media;
                 })
-                ->each(function (Attachment $attachment) {
+                ->each(function (Attachment $attachment) use ($post) {
+                    if ($attachment->attachable->model->isNot($post)) {
+                        $attachment->attachable->model()->associate($post);
+                    }
+
                     $attachment->attachable->setCustomProperty('caption', $attachment->node->getAttribute('caption'));
                     $attachment->attachable->setCustomProperty('width', $attachment->node->getAttribute('width'));
                     $attachment->attachable->setCustomProperty('height', $attachment->node->getAttribute('height'));
@@ -43,14 +62,14 @@ class Post extends Model
 
     public function getSgidAttribute()
     {
-        return $this->toSignedGlobalId();
+        return $this->toSignedGlobalId()->toParam();
     }
 
     public function getAttachableSgidAttribute()
     {
         return $this->toSignedGlobalId([
             'for' => 'rich-text-laravel',
-        ]);
+        ])->toParam();
     }
 
     public function user()
